@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   
   <!-- source urls -->
-  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="loader.js"></script> 
   
   <!-- bootstrap style sheet -->
   
@@ -14,14 +15,34 @@
 <body>
   <h1>version 1.0</h1>
   <h2>25/09/2019</h2>
-  <script src = "calcCorrelation.js">
+  
+  <!-- for displaying the output of the calculations -->
+  <p id = output></p>
+  
+  <!-- where the uploadig vue component will go -->
+  <p id = up><master></master></p>
+  <script src = VueComponent.js>
+   
   </script>
+  
+
+  
+  
+  
+  
+  <!-- script sole purpose is to calculate correlation -->
+  <script src = "calcCorrelation.js"></script>
+  
+  <!-- placeholder script to be replaced by vue components for uploading and inputing manually -->
   <script>
     let xinput = [ 83, 116, 186, 81, 114] 
     let yinput = [ 11.2, 9.3, 21.6, 6.9, 10.2]
     var r = new Regression(xinput, yinput)
     var c = new Correlation(xinput, yinput)
+    document.getElementById('output').innerHTML += r.toString();
+    document.getElementById('output').innerHTML += c.toString();
   </script>
+  
 
 
 

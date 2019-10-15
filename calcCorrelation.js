@@ -56,6 +56,9 @@ class Correlation extends CommonCalculations {
     console.log("classed rxy = " + this.rxy) // works
     console.log("coefficient = " + this.coefficient)
   } 
+  toString() {
+    return this.coefficient
+  }
 }
 
 class Regression extends CommonCalculations {
@@ -92,6 +95,10 @@ class Regression extends CommonCalculations {
     this.beta0 = yAvg - (this.beta1 * xAvg)
     console.log("beta0 = " + this.beta0)
     console.log("beta1 = " + this.beta1)
+  }
+  
+  toString () {
+    return "beta0: " + this.beta0 + ",<br> beta1: " + this.beta1 + "<br>"
   }
 }
 
