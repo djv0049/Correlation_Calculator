@@ -20,7 +20,7 @@ class CommonCalculations  {
     }
     return result
   }
-  arraySum = function (arr) {
+  arraySum = function (arr) { // 
     let result = 0
     for ( let num of arr ) {
       result += num
@@ -29,16 +29,15 @@ class CommonCalculations  {
   }
 }
 
+//import CommonCalculations from "calcCorrelation.js"
 class Correlation extends CommonCalculations {
   
   constructor(x, y){
     super(x, y) 
     this.xSum = this.arraySum(this.xArr)
     this.ySum = this.arraySum(this.yArr)
-    this.dividend = 0
-    this.divisor = 0
     this.rxy = 0 
-    this.coeficient = 0
+    this.coefficient = 0
     this.calculateCorrelation()
   }
   
@@ -47,20 +46,21 @@ class Correlation extends CommonCalculations {
   }
   //
   calculateCorrelation(){
-    let xSum = this.arraySum(this.xArr)
-    let ySum = this.arraySum(this.yArr)
-    this.dividend = this.n * this.xySum - xSum * ySum
-    this.divisor = Math.sqrt(this.calcDividend(this.x2Arr, xSum) * this.calcDividend(this.y2Arr, this.ySum))
-    this.rxy = this.dividend / this.divisor
+    let ySum = this.ySum
+    let xSum = this.xSum
+    let dividend = this.n * this.xySum - xSum * ySum
+    let divisor = Math.sqrt(this.calcDividend(this.x2Arr, xSum) * this.calcDividend(this.y2Arr, ySum))
+    this.rxy = dividend / divisor
     this.coefficient = this.rxy ** 2
-    console.log("classed rxy = " + this.rxy) // works
     console.log("coefficient = " + this.coefficient)
   } 
   toString() {
-    return this.coefficient
+    return  "coefficient: " + this.coefficient + "</br>rxy: " + this.rxy
   }
 }
 
+
+//import CommonCalculations from "calcCorrelation.js"
 class Regression extends CommonCalculations {
   
   constructor (x, y){
@@ -71,14 +71,7 @@ class Regression extends CommonCalculations {
   }
   
   findAvg (arr) {
-    let n = this.n
-    let l = arr.length
-    let result = 0
-    for(let n of arr){
-      result += n 
-    }
-    result /= n
-    return result  
+    return this.arraySum(arr) / this.n
   }
   
   betaCalc (avg1, avg2 = avg1) {
@@ -98,9 +91,11 @@ class Regression extends CommonCalculations {
   }
   
   toString () {
-    return "beta0: " + this.beta0 + ",<br> beta1: " + this.beta1 + "<br>"
+    return "beta0: " + this.beta0 + ",<br>beta1: " + this.beta1 + "<br>"
   }
 }
+
+
 
 
 
