@@ -1,6 +1,6 @@
 class CommonCalculations  {
   // common constants
-  constructor ( xArray, yArray  ){
+  constructor ( xArray = [ 83, 116, 186, 81, 114], yArray = [ 11.2, 9.3, 21.6, 6.9, 10.2] ){
     this.xArr = xArray
     this.yArr = yArray
     this.x2Arr = this.sqrArray(this.xArr)
@@ -32,7 +32,7 @@ class CommonCalculations  {
 //import CommonCalculations from "calcCorrelation.js"
 class Correlation extends CommonCalculations {
   
-  constructor(x, y){
+  constructor(x=[ 83, 116, 186, 81, 114], y = [ 11.2, 9.3, 21.6, 6.9, 10.2]){
     super(x, y) 
     this.xSum = this.arraySum(this.xArr)
     this.ySum = this.arraySum(this.yArr)
@@ -63,7 +63,7 @@ class Correlation extends CommonCalculations {
 //import CommonCalculations from "calcCorrelation.js"
 class Regression extends CommonCalculations {
   
-  constructor (x, y){
+  constructor (x=[ 83, 116, 186, 81, 114], y = [ 11.2, 9.3, 21.6, 6.9, 10.2]){
     super (x, y)
     this.beta0 = 0
     this.beta1 = 0

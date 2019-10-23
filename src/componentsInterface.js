@@ -7,7 +7,7 @@ Vue.component( 'calc1', {
       <br />
       <p>the file content : <span id = arr>{{content}}</span> </p>
       <button @click="calculate">calculation</button>
-      <p> coefficient: {{coeff}}</p>
+      <p> coefficient: {{coefficient}}</p>
       <p> Beta0: {{beta0}}
 Beta1: {{beta1}}</p>
       
@@ -19,7 +19,7 @@ Beta1: {{beta1}}</p>
       regresCalc: 0,
       content:[],
       xArr: [],
-      coeff: 0,
+      coefficient: 0,
       yArr: [],
       beta0: 0,
       beta1: 1
@@ -54,9 +54,11 @@ Beta1: {{beta1}}</p>
       this.display
     },
     calculate: function () {
-      this.fixArray()
+      if(typeof this.content[0] == 'string'){
+        this.fixArray()
+        }
       this.correlCalc = new Correlation(this.content[0], this.content[1])
-      this.coeff = this.correlCalc.coefficient
+      this.coefficient = this.correlCalc.coefficient
       this.regresCalc = new Regression(this.content[0], this.content[1])
       this.beta0 = this.regresCalc.beta0
       this.beta1 = this.regresCalc.beta1
