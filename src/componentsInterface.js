@@ -1,26 +1,27 @@
 Vue.component( 'calc1', {
   template:`
-    <div id = upload>
-      <!-- need to be made into components to allow multiple(one for x and one for y) -->
+    <div id = "upload" class="text-center" >
+      <p>select two txt files to be calculated</p>
       <input type="file" multiple = 'multiple' @change="onFileChange">
-      <br />
-      <br />
-      <p>the file content : <span id = arr>{{content}}</span> </p>
-      <button @click="calculate">calculation</button>
-      <p> coefficient: {{coefficient}}</p>
-      <p> Beta0: {{beta0}}
-Beta1: {{beta1}}</p>
+      <button class="btn btn-success m-2 animated jello infinite" @click="calculate">do the math</button>
+      <ul class ="list-group bg.success">
+        <li class="list-group-item list-group-item-success"><p> coefficient: {{coefficient}}</p></li>
+        <li class="list-group-item list-group-item-info"> <p> Beta0: {{beta0}}</p> </li>
+        <li class="list-group-item list-group-item-success" > <p> Beta1: {{beta1}}</p> </li>
+      </ul>
+      
+      
+     
+     
       
     </div>
   `,
   data: function () {
     return {
-      correlCalc: 0,
-      regresCalc: 0,
+      correl: null, 
+      regres: null,
       content:[],
-      xArr: [],
       coefficient: 0,
-      yArr: [],
       beta0: 0,
       beta1: 1
      
@@ -51,25 +52,27 @@ Beta1: {{beta1}}</p>
           this.content[item][number] = parseFloat(this.content[item][number])
         }
       }
-      this.display
+      //this.display
     },
     calculate: function () {
       if(typeof this.content[0] == 'string'){
         this.fixArray()
         }
-      this.correlCalc = new Correlation(this.content[0], this.content[1])
-      this.coefficient = this.correlCalc.coefficient
-      this.regresCalc = new Regression(this.content[0], this.content[1])
-      this.beta0 = this.regresCalc.beta0
-      this.beta1 = this.regresCalc.beta1
+      this.correl = new Correlation(this.content[0], this.content[1])
+      this.correl.calculateCorrelation()
+      this.coefficient = this.correl.coefficient
+      this.regres = new Regression(this.content[0], this.content[1])
+      this.regres.calculateRegression()
+      this.beta0 = this.regres.beta0
+      this.beta1 = this.regres.beta1
     }
   }
 })
   
-  let apptwo = new Vue({
+  let result = new Vue({
   el: "#up",
   data: {
-    componentObject: { CommonCalculations: 'CommonCalculations' },
+    componentObject: { calc1: 'calc1' },
   }
 })
 

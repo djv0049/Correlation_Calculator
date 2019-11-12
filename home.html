@@ -3,7 +3,7 @@
  <!-- meta tags -->
   <meta charset="utf-8">
   
-  <!-- --- BOOTSTRAP --- -->
+  <!-- BOOTSTRAP --- -->
   
   <!-- bootstrap meta tag -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,37 +16,52 @@
   <!-- Vue.js source -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   
-  
+  <!-- react stuff -->
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
   <!-- head things -->
   <title>correlation calculator</title>
 </head>
-<body>
-  <h1>version 1.0</h1>
-  <h2>25/09/2019</h2>
+<body class="bg-warning container">
+
+<div class="text-center">
+  <h1 class ="">Correlation calculator</h1>
+  <h2>started 25/09/2019</h2>
   
-  <!-- for displaying the output of the calculations -->
-  <p id = output></p>
-  <div id = "up">
-    <div calcthing>
-        <calc1></calc1>
+  <div class = "text-center d-flex">
+    <p>this page must be hosted on a node.js server static server for the react component to render, due to CORS policy. </p>
+    <p class ="" >To upload files and calculate the correlation, use the vue component.</p>
+    <p>To enter numbers manually, please enter the numbers into the text field separated by a commas, then add to respective arrays with the buttons</p>
+  </div>
+</div>
+  <!-- for displaying the output of the calculations using bootstrap grid -->
+<div >
+  <div class ="row">
+    <div class="col bg-primary m-2" id="up">
+      <h2>Vue</h2>
+      <calc1></calc1>
+    </div>
+    <div class="col bg-danger m-2">
+      <h2>React</h2>
+      <div id="app"></div>
     </div>
   </div>
+</div>
+
+
   
 <!-- script sole purpose is to calculate correlation -->
-  <script src = "src/calcCorrelation.js"></script>
-  <script src = "src/componentsInterface.js"></script>
+  <script src = "../src/calcCorrelation.js"></script>
+  <script src = "../src/componentsInterface.js"></script>
+  <script  src="../src/reactupload.js" type="text/babel"></script>
+  <noscript>please run the server.js</noscript>
   <!--
   <script src = "correlationClass.js"></script>
   <script src = "regressionClass.js"></script>
   -->
   
   <!-- placeholder script to be replaced by vue components for uploading and inputing manually -->
-  <script>
-    let xinput = [ 83, 116, 186, 81, 114] 
-    let yinput = [ 11.2, 9.3, 21.6, 6.9, 10.2]
-    var r = new Regression(xinput, yinput)
-    var c = new Correlation(xinput, yinput)
-    document.getElementById('output').innerHTML += r.toString();
-    document.getElementById('output').innerHTML += c.toString();
-  </script>
+
+
 </body>

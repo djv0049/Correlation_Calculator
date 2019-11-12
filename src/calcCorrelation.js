@@ -7,20 +7,24 @@ class CommonCalculations  {
     this.y2Arr = this.sqrArray(this.yArr)
     this.xyArr = this.sqrArray(this.xArr, this.yArr)
     this.xySum = this.arraySum(this.xyArr)
-    this.n = (this.xArr.length == this.yArr.length) ? this.xArr.length : 0
+    this.n = (this.xArr.length == this.yArr.length) ? this.xArr.length : -10
   }
   
   // common functions from both equations in order 
   // from correlation to regression
   
-  sqrArray = function (array, array2 = array) {
-    let result = [] 
+  sqrArray (array, array2 = array) {
+    let result = []
     for (let i in array) {
+      if((!isNaN(array[i])) && (!isNaN(array2[i]))){
       result.push (array[i] * array2[i])
+      }
+      else return "cannot multiply these arrays"
     }
     return result
-  }
-  arraySum = function (arr) { // 
+    }
+  
+  arraySum(arr) { // 
     let result = 0
     for ( let num of arr ) {
       result += num
@@ -33,29 +37,34 @@ class CommonCalculations  {
 class Correlation extends CommonCalculations {
   
   constructor(x=[ 83, 116, 186, 81, 114], y = [ 11.2, 9.3, 21.6, 6.9, 10.2]){
-    super(x, y) 
+    super(x, y)
     this.xSum = this.arraySum(this.xArr)
     this.ySum = this.arraySum(this.yArr)
-    this.rxy = 0 
+    this.rxy = 0
     this.coefficient = 0
-    this.calculateCorrelation()
+    //this.calculateCorrelation()
   }
   
-  calcDividend(sqrdArr, arrSum){ // bottomCorrelation 
-    return this.n * this.arraySum(sqrdArr) - arrSum ** 2
+  calcDividend(sqrdArr, arrSum1, arrSum2 = arrSum1){ // bottomCorrelation 
+    return this.n * this.arraySum(sqrdArr) - arrSum1 * arrSum2
+  }
+  
+  calcDivisor(xSum, ySum){
+    return this.calcDividend(this.x2Arr,xSum) * this.calcDividend(this.y2Arr, ySum)
   }
   //
   calculateCorrelation(){
     let ySum = this.ySum
     let xSum = this.xSum
-    let dividend = this.n * this.xySum - xSum * ySum
-    let divisor = Math.sqrt(this.calcDividend(this.x2Arr, xSum) * this.calcDividend(this.y2Arr, ySum))
+    let dividend = this.calcDividend(this.xyArr,xSum, ySum)
+    let divisor = Math.sqrt(this.calcDivisor(xSum,ySum))
     this.rxy = dividend / divisor
     this.coefficient = this.rxy ** 2
     console.log("coefficient = " + this.coefficient)
+    return this.coefficient
   } 
   toString() {
-    return  "coefficient: " + this.coefficient + "</br>rxy: " + this.rxy
+    return  "coefficient: " + this.coefficient
   }
 }
 
@@ -67,7 +76,7 @@ class Regression extends CommonCalculations {
     super (x, y)
     this.beta0 = 0
     this.beta1 = 0
-    this.calculateRegression()
+    //this.calculateRegression()
   }
   
   findAvg (arr) {
@@ -97,7 +106,10 @@ class Regression extends CommonCalculations {
 
 
 
-
+module.exports = {
+  Correlation,
+  Regression,
+}
 
 
 // c = new Correlation([ 83, 116, 186, 81, 114], [ 11.2, 9.3, 21.6, 6.9, 10.2])
